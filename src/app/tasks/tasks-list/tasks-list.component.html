@@ -1,0 +1,10 @@
+<h1>Tasks list</h1>
+
+<app-task-form (taskCreated)="onTaskCreated($event)"></app-task-form>
+
+<ul>
+  <li *ngFor="let task of tasks">
+    <span>{{ task.title }}</span>
+    <button class="bg-sky-500 hover:bg-sky-700" type="button" (click)="onTaskDeleted(task.id!)">Delete</button>
+  </li>
+</ul>
