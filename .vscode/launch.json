@@ -3,11 +3,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ng serve",
+      "name": "Launch Chrome",
+      "request": "launch",
       "type": "chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "ng serve",
+      "type": "msedge",
       "request": "launch",
       "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+      "webpack:///src/*": "${webRoot}/src/*"
+      }
     },
     {
       "name": "ng test",

@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 import { TaskService } from '../task.service';
-import { ITask } from '../ITask';
+import { Task } from '../task.interfaces';
 
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css']
+  styleUrls: ['./tasks-list.component.css'],
 })
 
-export class TasksListComponent {
-  tasks: ITask[] = [];
-  filter: string = '';;
+export class TasksListComponent implements OnInit {
+  tasks: Task[] = [];
+  filter: string = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
     this.taskService.getAll().subscribe({
@@ -27,15 +27,16 @@ export class TasksListComponent {
     })
   }
 
-  onTaskCreated(task: ITask) {
+  onTaskCreated(task: Task) {
     this.tasks.push(task);
   }
 
   onTaskDeleted(taskId: number) {
-    this.taskService.delete(taskId).subscribe({
-      next: () => {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-      }
-    })
+    this.tasks = this.tasks.filter(task => task.id !== taskId);
+  }
+
+  onTaskCompleted(taskId: number) {
+    const index = this.tasks.findIndex(t => t.id === taskId);
+    this.tasks[index].isCompleted = true;
   }
 }

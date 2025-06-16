@@ -1,0 +1,55 @@
+<mat-list-item class="!p-0">
+  <div *ngIf="!isEdit" class="flex justify-between items-center w-full">
+    <div>
+      <span>{{ task.title }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button color="primary"
+        *ngIf="!task.isCompleted"
+        mat-stroked-button
+        (click)="onComplete(task.id!)"
+        [disabled]="task.isCompleted"
+      >
+        Complete
+      </button>
+
+      <span *ngIf="task.isCompleted" class="text-green-500">
+        {{ task.status }}
+      </span>
+
+      <button mat-icon-button (click)="onTaskOpenedEditor(task.id!)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="onOpenDeleteDialog(task.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isEdit" class="flex justify-between items-center w-full">
+    <input
+      type="text"
+      [(ngModel)]="editedTask!.title"
+      appAutofocus
+      (blur)="onBlur($event)"
+      (keyup.enter)="onSave(editedTask!); $event.preventDefault()"
+      placeholder="Enter title"
+    />
+
+    <div class="flex gap-1">
+      <button
+        id="save-btn"
+        color="primary"
+        mat-stroked-button
+        (mousedown)="onSave(editedTask!)"
+      >
+        Save
+      </button>
+
+      <button id="cancel-btn" mat-stroked-button (mousedown)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</mat-list-item>
