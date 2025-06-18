@@ -1,11 +1,22 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="w-full">
   <div class="flex justify-between">
-    <mat-form-field class="grow mr-2" hideRequiredMarker>
-      <mat-label for="title">Title</mat-label>
-      <input matInput id="title" type="text" formControlName="title" placeholder="Eneter title" />
-    </mat-form-field>
+    <div class="grow mr-2" hideRequiredMarker>
+      <input
+        matInput
+        id="title"
+        type="text"
+        formControlName="title"
+        placeholder="Eneter title"
+        class="px-2 py-1 border border-gray-300 rounded w-full"
+      />
+    </div>
 
-    <button mat-stroked-button type="submit" [disabled]="taskForm.invalid" class="h-full">
+    <button
+      mat-stroked-button
+      type="submit"
+      [disabled]="taskForm.invalid"
+      class="h-full"
+    >
       Add new task
     </button>
   </div>

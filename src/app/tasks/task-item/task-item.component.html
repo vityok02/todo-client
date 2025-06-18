@@ -5,7 +5,8 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <button color="primary"
+      <button
+        color="primary"
         *ngIf="!task.isCompleted"
         mat-stroked-button
         (click)="onComplete(task.id!)"
@@ -22,32 +23,46 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-icon-button color="warn" (click)="onOpenDeleteDialog(task.id!)">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="onOpenDeleteDialog(task.id!)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </div>
   </div>
-  <div *ngIf="isEdit" class="flex justify-between items-center w-full">
+  <div *ngIf="isEdit" class="flex justify-between items-center w-full gap-2">
     <input
       type="text"
       [(ngModel)]="editedTask!.title"
       appAutofocus
-      (blur)="onBlur($event)"
+      #titleInput="ngModel"
+      required
       (keyup.enter)="onSave(editedTask!); $event.preventDefault()"
       placeholder="Enter title"
+      class="border p-1 w-full"
     />
+
+    <div
+      *ngIf="titleInput.invalid && titleInput.touched"
+      class="text-red-500 text-sm"
+    >
+      Title is required
+    </div>
 
     <div class="flex gap-1">
       <button
         id="save-btn"
         color="primary"
         mat-stroked-button
-        (mousedown)="onSave(editedTask!)"
+        (click)="onSave(editedTask!)"
+        [disabled]="titleInput.invalid"
       >
         Save
       </button>
 
-      <button id="cancel-btn" mat-stroked-button (mousedown)="cancelEdit()">
+      <button id="cancel-btn" mat-stroked-button (click)="cancelEdit()">
         Cancel
       </button>
     </div>

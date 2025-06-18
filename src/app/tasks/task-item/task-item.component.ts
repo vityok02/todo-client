@@ -12,6 +12,7 @@ import { TaskDeleteDialogComponent } from '../task-delete-dialog/task-delete-dia
 export class TaskItemComponent {
   @Input() task!: Task;
   @Output() taskDeleted = new EventEmitter<number>();
+
   editedTask: UpdateTask | null = null;
 
   constructor(
@@ -54,18 +55,6 @@ export class TaskItemComponent {
         alert(error.error);
       }
     });
-  }
-
-  onBlur(event: FocusEvent) {
-    setTimeout(() => {
-      const activeElement = document.activeElement;
-      if (
-        activeElement && activeElement.id === 'save-btn'
-      ) {
-        return;
-      }
-      this.cancelEdit();
-    }, 0);
   }
 
   cancelEdit() {

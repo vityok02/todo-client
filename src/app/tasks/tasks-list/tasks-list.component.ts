@@ -12,6 +12,7 @@ import { Task } from '../task.interfaces';
 
 export class TasksListComponent implements OnInit {
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   filter: string = '';
 
   constructor(private taskService: TaskService) { }
@@ -19,6 +20,7 @@ export class TasksListComponent implements OnInit {
   ngOnInit() {
     this.taskService.getAll().subscribe({
       next: data => {
+        this.filteredTasks = data;
         this.tasks = data;
       },
       error: error => {
@@ -28,15 +30,27 @@ export class TasksListComponent implements OnInit {
   }
 
   onTaskCreated(task: Task) {
-    this.tasks.push(task);
+    this.filteredTasks.push(task);
   }
 
   onTaskDeleted(taskId: number) {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.filteredTasks = this.filteredTasks.filter(task => task.id !== taskId);
   }
 
   onTaskCompleted(taskId: number) {
-    const index = this.tasks.findIndex(t => t.id === taskId);
-    this.tasks[index].isCompleted = true;
+    const index = this.filteredTasks.findIndex(t => t.id === taskId);
+    this.filteredTasks[index].isCompleted = true;
+  }
+
+  onSearch() {
+    console.log(this.filter);
+    this.filteredTasks = this.tasks.filter(t => t.title
+      .toLowerCase().includes(this.filter.toLowerCase())
+    )
+  }
+
+  onClearSearch() {
+    this.filter = '';
+    this.filteredTasks = this.tasks;
   }
 }

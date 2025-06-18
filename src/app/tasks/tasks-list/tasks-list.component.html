@@ -2,8 +2,30 @@
 
 <app-task-form (taskCreated)="onTaskCreated($event)"></app-task-form>
 
+<mat-divider class="!my-3"></mat-divider>
+
+<div class="flex flex-row gap-2 items-center">
+  <input
+    type="text"
+    [(ngModel)]="filter"
+    placeholder="Search tasks"
+    class="px-2 py-2 border border-gray-300 rounded w-full h-[30px]"
+    (keyup.enter)="onSearch(); $event.preventDefault()"
+  />
+
+  <div class="flex gap-1">
+    <button mat-stroked-button class="!h-[30px]" (click)="onSearch()">
+      Search
+    </button>
+
+    <button mat-stroked-button class="!h-[30px]" (click)="onClearSearch()">
+      Reset
+    </button>
+  </div>
+</div>
+
 <mat-list>
-  <ng-container *ngFor="let task of tasks">
+  <ng-container *ngFor="let task of filteredTasks">
     <app-task-item
       [task]="task"
       (taskDeleted)="onTaskDeleted($event)"
