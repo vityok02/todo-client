@@ -13,11 +13,14 @@ import { TaskItemComponent } from './tasks/task-item/task-item.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDeleteDialogComponent } from './tasks/task-delete-dialog/task-delete-dialog.component';
+import { TaskMockService } from './tasks/task.mock.service';
+import { TaskService } from './tasks/task.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,15 @@ import { TaskDeleteDialogComponent } from './tasks/task-delete-dialog/task-delet
     FormsModule,
     MatDialogModule,
   ],
-  providers: [provideHttpClient()],
+  providers: [
+    provideHttpClient(),
+    {
+      provide: TaskService,
+      useClass: environment.useMock
+        ? TaskMockService
+        : TaskService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

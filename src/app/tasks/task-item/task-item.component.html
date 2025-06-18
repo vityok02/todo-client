@@ -16,7 +16,7 @@
       </button>
 
       <span *ngIf="task.isCompleted" class="text-green-500">
-        {{ task.status }}
+        {{ "Completed" }}
       </span>
 
       <button mat-icon-button (click)="onTaskOpenedEditor(task.id!)">
