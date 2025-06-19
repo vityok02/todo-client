@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { TaskService } from '../task.service';
 import { Task } from '../task.interfaces';
@@ -52,5 +53,10 @@ export class TasksListComponent implements OnInit {
   onClearSearch() {
     this.filter = '';
     this.filteredTasks = this.tasks;
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    console.log(event);
+    moveItemInArray(this.filteredTasks, event.previousIndex, event.currentIndex);
   }
 }

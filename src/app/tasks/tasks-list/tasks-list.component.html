@@ -24,12 +24,13 @@
   </div>
 </div>
 
-<mat-list>
+<mat-list cdkDropList (cdkDropListDropped)="drop($event)" class="task-list !p-0 !mt-2">
   <ng-container *ngFor="let task of filteredTasks">
     <app-task-item
       [task]="task"
       (taskDeleted)="onTaskDeleted($event)"
+      cdkDrag
+      class="task-item"
     ></app-task-item>
-    <mat-divider></mat-divider>
   </ng-container>
 </mat-list>

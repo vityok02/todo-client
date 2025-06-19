@@ -2,7 +2,7 @@ import { AutofocusDirective } from './shared/directives/autofocus.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { TaskDeleteDialogComponent } from './tasks/task-delete-dialog/task-delet
 import { TaskMockService } from './tasks/task.mock.service';
 import { TaskService } from './tasks/task.service';
 import { environment } from 'src/environments/environment';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,10 @@ import { environment } from 'src/environments/environment';
     MatListModule,
     MatDividerModule,
     MatInputModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     FormsModule,
     MatDialogModule,
+    DragDropModule
   ],
   providers: [
     provideHttpClient(),
